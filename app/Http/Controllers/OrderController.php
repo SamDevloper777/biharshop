@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -106,5 +107,28 @@ class OrderController extends Controller
     {
         $data['order'] = Order::where('user_id', Auth::id())->where('isOrdered', false)->first();
         return view('cart', $data);
+    }
+    public function addCoupon(Request $request)
+    {
+        $coupon_code = $request->coupon_code;
+        $coupon= Coupon::where('code',$coupon_code)->first();
+        if($coupon) {
+             
+            $order = Order::where('user_id',Auth::id())->where('isOrdered',false)->first();
+            $order->coupon_id= $coupon->id;
+            $order->save();
+        }
+        else{
+            return redirect()->route('cart')->with('coupon_error','coupon code not found');
+        }
+
+        return redirect()->route('cart');
+    }
+    public function removecoupon(){
+        $order = Order::where('user_id',Auth::id())->where('isOrdered',false)->first();
+        $order->coupon_id= null;
+        $order->save();
+
+        return redirect()->route('cart');
     }
 }

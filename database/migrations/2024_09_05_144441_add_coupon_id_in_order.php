@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            //
+            $table->foreignId('coupon_id')->nullable()->constrained('coupons');  // Add foreign key constraint to coupons table
         });
     }
 

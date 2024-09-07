@@ -33,6 +33,9 @@ Route::prefix("auth")->group(function(){
 Route::get('/add-to-cart/{product_slug}',[OrderController::class,"addToCart"])->name("addToCart")->middleware('auth');
 Route::get('/remove-from-cart/{product_slug}',[OrderController::class,"removeFromCart"])->name("removeFromCart")->middleware('auth');
 Route::get('/cart',[OrderController::class,"showCart"])->name("cart")->middleware('auth');
+//coupon route
+Route::post('/add-coupon',[OrderController::class,"addCoupon"])->name("coupon.add")->middleware('auth');
+Route::get('/remove-coupon,{id}',[OrderController::class,"removecoupon"])->name("coupon.remove")->middleware('auth');
 
 Route::get('/{category}/{slug}',[HomeController::class,"viewProduct"])->name('view.product');
 Route::get('/{slug}',[HomeController::class,"filter"])->name('view.filter');
