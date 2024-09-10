@@ -6,6 +6,7 @@ use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -131,4 +132,10 @@ class OrderController extends Controller
 
         return redirect()->route('cart');
     }
+    public function checkout(){
+        $data['addresses']=User::find(Auth::id())->addressrel;
+        $data['order'] = Order::where('user_id',Auth::id())->where('isOrdered',false)->first();
+       return view('checkout',$data);
+    }
+
 }

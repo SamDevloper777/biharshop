@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
@@ -33,6 +34,9 @@ Route::prefix("auth")->group(function(){
 Route::get('/add-to-cart/{product_slug}',[OrderController::class,"addToCart"])->name("addToCart")->middleware('auth');
 Route::get('/remove-from-cart/{product_slug}',[OrderController::class,"removeFromCart"])->name("removeFromCart")->middleware('auth');
 Route::get('/cart',[OrderController::class,"showCart"])->name("cart")->middleware('auth');
+Route::get('/checkout',[OrderController::class,"checkout"])->name("checkout")->middleware('auth');
+
+Route::post("/checkout",[AddressController::class,"store"])->name('address.store');
 //coupon route
 Route::post('/add-coupon',[OrderController::class,"addCoupon"])->name("coupon.add")->middleware('auth');
 Route::get('/remove-coupon,{id}',[OrderController::class,"removecoupon"])->name("coupon.remove")->middleware('auth');

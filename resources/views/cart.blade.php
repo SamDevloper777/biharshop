@@ -25,8 +25,8 @@ $total_payable = 0;
             $total_payable= $total_discount + $total_tax;
 
             if($order->coupon_id != Null):
-                $total_payable-=$order->coupon->amount;
-            endif    
+            $total_payable-=$order->coupon->amount;
+            endif
             @endphp
             <div class="flex w-full items-center gap-5 mb-3 bg-slate-100 p-5">
                 <img class="size-32 rounded-sm" src="/images/{{$item->product->featured_image}}" alt="">
@@ -70,7 +70,7 @@ $total_payable = 0;
                     Total CD{{$order->coupon->code}}
                     <span class="float-end font-normal">Rs.{{$order->coupon->amount}}/-</span>
                 </div>
-                
+
                 @endif
                 <div type="button" class="w-full px-4 py-2 font-medium text-left rtl:text-right border-b border-gray-200 cursor-pointer">
                     Total Payable Amount
@@ -81,7 +81,7 @@ $total_payable = 0;
 
             <div class="border w-full bg-white shadow-lg mt-4 p-5">
                 @if($order->coupon_id == NULL)
-                
+
                 <form action="{{route('coupon.add')}}" method="post">
                     @csrf
                     <input type="text" name="coupon_code" class="border px-3 py-2 rounded flex-1 gap-2" placeholder="enter coupon code here">
@@ -90,10 +90,10 @@ $total_payable = 0;
                 @else
                 <p class="text-xl">Coupon Applied:<span class="bg-green-600 text-white px-3 py-2 rounded">{{$order->coupon->code}}
 
-                </span>
-                <a href="{{route('coupon.remove', $order->coupon_id)}}" class=" float-end text-red-600 text-lg font-black">X</a>
+                    </span>
+                    <a href="{{route('coupon.remove', $order->coupon_id)}}" class=" float-end text-red-600 text-lg font-black">X</a>
 
-            </p>
+                </p>
                 @endif
 
                 @session('coupon_error')
@@ -102,8 +102,13 @@ $total_payable = 0;
                 </div>
                 @endsession
 
+                <div class="flex flex-1 justify-between p-5">
+                    <a href="{{route("homepage")}}" class="bg-salte-900 text-white px-3 py-2">More Shopping</a>
+                    <a href="{{route('checkout')}}" class="bg-orange-500 text-white px-3 py-2">Checkout</a>
+                </div>
 
             </div>
+
 
         </div>
 
