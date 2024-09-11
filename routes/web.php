@@ -35,6 +35,8 @@ Route::get('/add-to-cart/{product_slug}',[OrderController::class,"addToCart"])->
 Route::get('/remove-from-cart/{product_slug}',[OrderController::class,"removeFromCart"])->name("removeFromCart")->middleware('auth');
 Route::get('/cart',[OrderController::class,"showCart"])->name("cart")->middleware('auth');
 Route::get('/checkout',[OrderController::class,"checkout"])->name("checkout")->middleware('auth');
+Route::get('/make/payment',[OrderController::class,"makepayment"])->name("make.payment")->middleware('auth');
+Route::post('/checkout/add-address',[OrderController::class,"addAddress"])->name("order.addAddress")->middleware('auth');
 
 Route::post("/checkout",[AddressController::class,"store"])->name('address.store');
 //coupon route

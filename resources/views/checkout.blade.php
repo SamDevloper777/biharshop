@@ -35,7 +35,7 @@ $total_payable = 0;
                 </div>
                 <div class="mb-3">
                     <label for="street" class="block text-sm font-semibold text-gray-700">street</label>
-                    <input type="text" id="street"  name="street" class="w-full px-3 py-2 text-gray-700 rounded-md">
+                    <input type="text" id="street" name="street" class="w-full px-3 py-2 text-gray-700 rounded-md">
                     @error('street')
                     <p class="text-xs text-red-500 font-semibold">{{$message}}</p>
                     @enderror
@@ -79,7 +79,7 @@ $total_payable = 0;
                     <p class="text-xs text-red-500 font-semibold">{{$message}}</p>
                     @enderror
                 </div>
-               
+
                 <div class="mb-3">
                     <label for="pincode" class="block text-sm font-semibold text-gray-700">pincode</label>
                     <input type="number" id="pincode" name="pincode" class="w-full px-3 py-2 text-gray-700 rounded-md">
@@ -94,23 +94,29 @@ $total_payable = 0;
 
         </div>
 
-        <div class="w-3/12">
-            @foreach ($addresses as $address )
-                <div class="border p-4">
-                    <p>{{$address->full_name}}</p>
-                    <p>{{$address->contact}}</p>
-                    <p>{{$address->street}}</p>
-                    <p>{{$address->area}}</p>
-                    <p>{{$address->city}}</p>
-                    <p>{{$address->landmark}}</p>
-                    <p>{{$address->state}}</p>
-                    <p>{{$address->type}}</p>
-                    <p>{{$address->pincode}}</p>
-                    <a href="" class="text-green-600">Edit</a>
-
+        <div class="w-3/12 space-y-5">
+        <form action="{{route('order.addAddress')}}" method="post" class="flex flex-col gap-2">
+            @csrf
+             
+        @foreach ($addresses as $address )
+            <label class="card border p-4 hover:bg-green-200 duration-200  hover:scale-105 hover:shadow-lg transition-transform  rounded-lg bg-white shadow-md flex flex-col gap-2 relative">
+                <input type="radio" onchange="this.form.submit()" name="selected_address" class="hidden" value="{{$address->id}}"  />
+                <div>
+                    <p class="font-semibold">{{ $address->full_name }}</p>
+                    <p>{{ $address->contact }}</p>
+                    <p>{{ $address->street }}</p>
+                    <p>{{ $address->area }}</p>
+                    <p>{{ $address->city }}</p>
+                    <p>{{ $address->landmark }}</p>
+                    <p>{{ $address->state }}</p>
+                    <p>{{ $address->type }}</p>
+                    <p>{{ $address->pincode }}</p>
+                    <a href="#" class="text-blue-500 hover:underline">Edit</a>
                 </div>
+            </label>
             @endforeach
 
+        </form>
 
 
         </div>

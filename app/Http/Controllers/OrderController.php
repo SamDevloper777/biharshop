@@ -137,5 +137,21 @@ class OrderController extends Controller
         $data['order'] = Order::where('user_id',Auth::id())->where('isOrdered',false)->first();
        return view('checkout',$data);
     }
+    public function addAddress(Request  $req){
+        $order = Order::where('user_id',Auth::id())->where('isOrdered',false)->first();
+        if($order){
+            $order->address_id = $req->selected_address;
+            $order->save();
+            return redirect()->route('make.payment');
+        }
+    }
+    public function makePayment(){
+        $order = Order::where('user_id',Auth::id())->where('isOrdered',false)->first();
+
+        if(!$order->address_id){
+            return redirect()->route('checkout')->with('address_error','please select an address');
+        }
+        return view('make-payment',compact('order'));
+    }
 
 }

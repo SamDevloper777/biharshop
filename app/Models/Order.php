@@ -16,7 +16,7 @@ class Order extends Model
         return $this->hasMany(OrderItem::class,'order_id','id');
     }
     public function coupon():HasOne{
-        return $this->hasOne(Coupon::class,'id','coupon_id');
+        return $this->hasOne(Coupon::class,'id','coupon_id');//jis table ka data chaiya uska local key aga rakho aur jisma chaiya uska forign key baad ma
     }
 
     

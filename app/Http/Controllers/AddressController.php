@@ -25,7 +25,7 @@ class AddressController extends Controller
 
         $validatedData['user_id'] = Auth::id();
 
-        $address =Address::create($validatedData);
+        $address = Address::create($validatedData);
 
         return redirect()->route('checkout');
     }
